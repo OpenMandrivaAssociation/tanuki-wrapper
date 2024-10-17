@@ -39,7 +39,7 @@ Release:        %mkrel 0.0.4
 Summary:        Java Service Wrapper
 Epoch:          0
 License:        BSD
-URL:            http://wrapper.tanukisoftware.org/
+URL:            https://wrapper.tanukisoftware.org/
 Source0:        http://download.sourceforge.net/wrapper/wrapper_3.2.3_src.tar.gz
 Patch1:         %{name}-build.patch
 Patch2:         %{name}-crosslink.patch
