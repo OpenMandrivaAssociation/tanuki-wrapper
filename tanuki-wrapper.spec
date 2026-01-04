@@ -2,7 +2,7 @@
 
 Name:     tanuki-wrapper
 Version:  3.6.4
-Release:  1
+Release:  2
 Summary:  Java Service Wrapper
 URL:      https://wrapper.tanukisoftware.com
 License:  GPLv3
@@ -51,7 +51,7 @@ mv lib/* %{buildroot}%{_libdir}/%{name}/
 
 %files
 %doc README_*.txt doc/revisions.txt doc/index.html
-%doc src/conf/wrapper.conf.in
+%doc src/bin/App.sh*.in src/conf/wrapper.conf.in
 %license doc/wrapper-community-license-1.3.txt
 %{_bindir}/%{name}
 %{_libdir}/%{name}
