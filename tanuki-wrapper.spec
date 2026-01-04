@@ -13,6 +13,7 @@ Patch0:  build-only-wrapper.patch
 
 BuildRequires:  ant
 BuildRequires:  jdk-current
+BuildRequires:  make
 BuildRequires:  pkgconfig(cunit)
 BuildRequires:  pkgconfig(ncursesw)
 
