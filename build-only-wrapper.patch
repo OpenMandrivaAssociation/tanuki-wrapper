@@ -1,0 +1,60 @@
+--- a/build.xml
++++ b/build.xml
+@@ -671,6 +671,32 @@
+             <classpath refid="project.class.path"/>
+         </available>
+     </target>
++    <target name="compile-java:core-only" depends="compile-java:setup:wrapper">
++    <javac srcdir="${java.dir}"
++           destdir="${build.classes}"
++           includeantruntime="false"
++           deprecation="on"
++           debug="on"
++           optimize="on"
++           source="${javac.target.version}"
++           target="${javac.target.version}"
++           excludes="org/tanukisoftware/wrapper/demo/**,
++                     org/tanukisoftware/wrapper/test/**,
++                     org/tanukisoftware/wrapper/test2/**,
++                     testmodule/**,
++                     module-info.java">
++        <classpath refid="project.class.path"/>
++    </javac>
++
++    <copy todir="${build.classes}">
++        <fileset dir="${java.dir}">
++            <include name="**/*.properties"/>
++            <include name="**/*.jpg"/>
++            <include name="**/*.html"/>
++            <include name="**/Manifest"/>
++        </fileset>
++    </copy>
++    </target>
+     <target name="check:junit" depends="compile-java:core" unless="junit.present">
+         <echo message="**********************************************************************"/>
+         <echo message="* JUnit jar not found.  Not running tests."/>
+@@ -855,6 +881,24 @@
+     <!-- =================================================================== -->
+     <!-- Create the jar archives                                             -->
+     <!-- =================================================================== -->
++    <target name="jar:wrapper-only" depends="compile-java:core-only">
++    <jar jarfile="${lib.dir}/wrapper.jar"
++         basedir="${build.classes}"
++         includes="**/*.class,**/*.properties,**/*.html,**/*.jpg"
++         excludes="**/demo/**,**/test/**,**/test2/**,testmodule/**,module-info.class">
++        <manifest>
++            <attribute name="Built-By" value="${user.name}"/>
++            <attribute name="Package" value="org.tanukisoftware.wrapper"/>
++            <attribute name="Extension-Name" value="wrapper"/>
++            <attribute name="Specification-Title" value="Java Service Wrapper"/>
++            <attribute name="Specification-Vendor" value="Tanuki Software, Ltd."/>
++            <attribute name="Specification-Version" value="${version.root}"/>
++            <attribute name="Implementation-Title" value="org.tanukisoftware.wrapper"/>
++            <attribute name="Implementation-Vendor" value="Tanuki Software, Ltd."/>
++            <attribute name="Implementation-Version" value="${version.root}"/>
++        </manifest>
++    </jar>
++    </target>
+     <target name="jar:copy" depends="init-setup" if="prebuilt.jar.present">
+         <copy file="${src.dir}/pre-release/lib/wrapper.jar" todir="${lib.dir}" preservelastmodified="true" />
+         <copy file="${src.dir}/pre-release/lib/wrappertest.jar" todir="${lib.dir}" preservelastmodified="true" />
