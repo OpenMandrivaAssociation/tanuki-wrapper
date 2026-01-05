@@ -1,8 +1,8 @@
-#%undefine _debugsource_packages
+%undefine _debugsource_packages
 
 Name:     tanuki-wrapper
 Version:  3.6.4
-Release:  2
+Release:  3
 Summary:  Java Service Wrapper
 URL:      https://wrapper.tanukisoftware.com
 License:  GPLv3
@@ -44,14 +44,17 @@ ant -f build.xml jar:wrapper-only compile-c-unix -Dbits=$BITS -Dant.java.version
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_libdir}/%{name}
+mkdir -p %{buildroot}%{_datadir}/java
+mkdir -p %{buildroot}%{_libdir}
 
 mv bin/* %{buildroot}%{_bindir}/%{name}
-mv lib/* %{buildroot}%{_libdir}/%{name}/
+mv lib/*.jar %{buildroot}%{_datadir}/java/%{name}.jar
+mv lib/*.so %{buildroot}%{_libdir}/lib%{name}.so
 
 %files
 %doc README_*.txt doc/revisions.txt doc/index.html
 %doc src/bin/App.sh*.in src/conf/wrapper.conf.in
 %license doc/wrapper-community-license-1.3.txt
 %{_bindir}/%{name}
-%{_libdir}/%{name}
+%{_datadir}/java/%{name}.jar
+%{_libdir}/lib%{name}.so
